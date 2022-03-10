@@ -3,10 +3,17 @@ FROM debian:buster
 RUN apt-get update && apt-get install --no-install-recommends -y \
     bash \
     git \
-    maven \
-    libjpeg62-turbo-dev
+    maven
 
 EXPOSE 80
+
+# Installation de opencv
+RUN git clone git://github.com/opencv/opencv.git
+WORKDIR opencv
+RUN mkdir build
+WORKDIR build
+RUN cmake -DBUILD_SHARED_LIBS=OFF .. && make -j8
+# Installation et RUN de l'application Java
 
 RUN git clone https://github.com/barais/TPDockerSampleApp
 
