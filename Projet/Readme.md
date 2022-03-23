@@ -28,6 +28,11 @@ Go to api directory :
     $ docker-compose up --detach
 ```
 
+## CI
+After building the jenkins image for the first time, set the password within the GUI from the one displayed in logs.
+Then, proceed to the initialization using recommended plugins and create the firsty admin user.
+Create an agent then install the "Pipeline As Yaml (Incubated)" plug-in and reboot Jenkins.
+
 ## Container status
 
 ![container configuration](vm-configuration.drawio.png)
