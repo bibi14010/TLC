@@ -1,0 +1,40 @@
+version: "3.6"
+services:
+  front:
+    image: nginx
+    volumes:
+      - ./doodlestudent/front/dist/tlcfront:/usr/share/nginx/html
+    ports:
+      - "80:80"
+
+  db:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tlc
+      - MYSQL_USER=tlc
+      - MYSQL_PASSWORD=tlc
+  etherpad:
+    image: etherpad/etherpad
+    ports:
+      - "9001:9001"
+    volumes:
+      - ./doodlestudent/api/APIKEY.txt:/opt/etherpad-lite/APIKEY.txt
+  mail:
+    image: bytemark/smtp
+    restart: always
+    ports:
+      - "2525:25"
+  api:
+    build: ./doodlestudent/api/src/main/docker
+    image: doodlestudent-api
+    depends_on:
+      - db
+      - etherpad
+      - mail
+      - front
+    ports:
+      - "8080:8080"
+
