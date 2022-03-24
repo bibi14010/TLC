@@ -26,7 +26,7 @@ services:
     image: bytemark/smtp
     restart: always
     ports:
-      - "2525:25"
+      - "2526:25"
   api:
     build: ./doodlestudent/api/src/main/docker
     image: doodlestudent-api
